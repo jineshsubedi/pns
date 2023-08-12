@@ -129,7 +129,7 @@
 @endsection
 @section('scripts')
 <script>
-    
+
     $('#icon').change(function() {
         var file = this.files[0];
         var reader = new FileReader();

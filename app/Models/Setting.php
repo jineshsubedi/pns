@@ -18,7 +18,7 @@ class Setting extends Model
     public function statusTitle(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->status == AppConstant::ACTIVE ? 'Active' : 'Inactive', 
+            get: fn() => $this->status == AppConstant::ACTIVE ? 'Active' : 'Inactive',
         );
     }
 

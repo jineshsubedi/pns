@@ -1,8 +1,10 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <a href="{{url('/')}}" class="brand-link">
-    <img src="{{config('app.settings')->logo_path ?? '/images/logo.png'}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">{{ config('app.settings')->name ?? env('APP_NAME') }}</span>
+    @if(config('app.settings')->logo_path)
+    <img src="{{config('app.settings')->logo_path}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    @endif
+    <span class="brand-text font-weight-light" style="width:100%;white-space: pre-line;">{{ config('app.settings')->name ?? env('APP_NAME') }}</span>
   </a>
   <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">

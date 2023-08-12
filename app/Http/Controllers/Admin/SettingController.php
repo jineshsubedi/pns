@@ -51,7 +51,7 @@ class SettingController extends Controller
             $file = $request->file('logoFile');
             $logo = 'setting/logo/'.time() . '.' . $file->getClientOriginalExtension();
             Imagetool::storeImage($file, $logo);
-             
+
         }
         if($request->hasFile('iconFile'))
         {
@@ -90,7 +90,7 @@ class SettingController extends Controller
             $file = $request->file('logoFile');
             $logo = 'setting/logo/'.time() . '.' . $file->getClientOriginalExtension();
             Imagetool::storeImage($file, $logo);
-             
+
         }
         if($request->hasFile('iconFile'))
         {
