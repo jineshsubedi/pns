@@ -25,5 +25,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'read-setting']);
         Permission::create(['name' => 'update-setting']);
         Permission::create(['name' => 'delete-setting']);
+        Permission::create(['name' => 'create-employer']);
+        Permission::create(['name' => 'read-employer']);
+        Permission::create(['name' => 'update-employer']);
+        Permission::create(['name' => 'delete-employer']);
+        Permission::create(['name' => 'create-employee']);
+        Permission::create(['name' => 'read-employee']);
+        Permission::create(['name' => 'update-employee']);
+        Permission::create(['name' => 'delete-employee']);
     }
 }

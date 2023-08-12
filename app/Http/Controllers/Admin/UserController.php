@@ -73,9 +73,9 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user): RedirectResponse
+    public function update(UserRequest $request, User $user)
     {
-        $user->update($request->validated() + [
+        $user->update(\Arr::except($request->validated(), 'password') + [
             'password' => $request->password != null ? bcrypt($request->password) : $user->password,
         ]);
         $user->syncRoles($request->roles);

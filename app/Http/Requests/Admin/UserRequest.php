@@ -23,18 +23,18 @@ class UserRequest extends FormRequest
     {
         $rules = [
             'name' => 'required',
-            'password' => 'required',
             'roles.*' => 'sometimes'
         ];
         if($this->getMethod() =='POST') {
             $rules += [
                 'email' => 'required|email',
+                'password' => 'required',
             ];
         }
-
         if($this->getMethod() == 'PUT') {
             $rules += [
-                'email' => 'required|unique:users,emaul,'.$this->user->id.',id',
+                'email' => 'required|unique:users,email,'.$this->user->id.',id',
+                'password' => 'sometimes',
             ];
         }
 

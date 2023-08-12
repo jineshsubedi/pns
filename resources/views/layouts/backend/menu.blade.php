@@ -55,6 +55,24 @@
                 ],
             ],
         ],
+        [
+            'url' => route("admin.employers.index"),
+            'label' => 'Employers',
+            'icon' => 'nav-icon fas fa-briefcase',
+            'permission' => 'read-employer',
+            'path' => request()->is('admin/employers*'),
+            'links' => [],
+            'children' => [],
+        ],
+        [
+            'url' => route("admin.employees.index"),
+            'label' => 'Employees',
+            'icon' => 'nav-icon fas fa-users',
+            'permission' => 'read-employee',
+            'path' => request()->is('admin/employees*'),
+            'links' => [],
+            'children' => [],
+        ],
     ];
 
     // $permissions = Cache::remember('user_permissions_' . auth()->id(), 60 * 60, function() {

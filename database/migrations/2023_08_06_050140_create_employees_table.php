@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('avatar')->nullable();
             $table->boolean('status')->default(true);
+            $table->boolean('is_freelancer')->default(true);
             $table->timestamps();
         });
     }

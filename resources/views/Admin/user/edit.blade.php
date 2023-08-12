@@ -49,7 +49,7 @@
                                 @foreach ($roles as $role)
                                     @if (in_array($role->name, $userRoles))
                                         <option value="{{$role->name}}" selected>{{$role->name}}</option>
-                                    @else     
+                                    @else
                                         <option value="{{$role->name}}">{{$role->name}}</option>
                                     @endif
                                 @endforeach
@@ -58,6 +58,11 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            @if ($errors->has('password'))
+                            <span class="error invalid-feedback">
+                                {{ $errors->first('password') }}
+                            </span>
+                            @endif
                         </div>
                     </div>
                     <div class="card-footer">

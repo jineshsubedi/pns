@@ -11,3 +11,5 @@ Route::prefix('profile')->as('profile.')->group(function () {
 Route::resource('roles', 'RoleController');
 Route::resource('users', 'UserController');
 Route::resource('settings', 'SettingController')->except(['show']);
+Route::resource('employers', 'EmployerController');
+Route::resource('employees', 'EmployeeController')->except(['create', 'update', 'show']);
