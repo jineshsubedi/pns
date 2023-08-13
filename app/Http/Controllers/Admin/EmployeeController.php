@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:create-employee', ['only' => ['store', 'create']]);
+        $this->middleware('permission:update-employee',   ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete-employee',   ['only' => ['destroy']]);
+        $this->middleware('permission:read-employee',   ['only' => ['show', 'index']]);
+    }
     public function index()
     {
         $data['status'] = AppConstant::REQUIRED;

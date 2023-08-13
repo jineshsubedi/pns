@@ -14,6 +14,13 @@ use Illuminate\Http\Request;
 
 class EmployerJobController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:create-jobs', ['only' => ['store', 'create']]);
+        $this->middleware('permission:update-jobs',   ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete-jobs',   ['only' => ['destroy']]);
+        $this->middleware('permission:read-jobs',   ['only' => ['show', 'index']]);
+    }
     public function index(Request $request)
     {
         $data['status'] = AppConstant::REQUIRED;

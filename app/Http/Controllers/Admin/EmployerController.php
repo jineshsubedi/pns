@@ -13,6 +13,13 @@ use View;
 
 class EmployerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:create-employer', ['only' => ['store', 'create']]);
+        $this->middleware('permission:update-employer',   ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete-employer',   ['only' => ['destroy']]);
+        $this->middleware('permission:read-employer',   ['only' => ['show', 'index']]);
+    }
     /**
      * Display a listing of the resource.
      */

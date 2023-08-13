@@ -10,6 +10,8 @@ Route::prefix('profile')->as('profile.')->group(function () {
 
 Route::resource('roles', 'RoleController');
 Route::resource('users', 'UserController');
+Route::resource('category', 'CategoryController')->except(['show']);
+Route::resource('testimonial', 'TestimonialController')->except(['show']);
 Route::resource('settings', 'SettingController')->except(['show']);
 Route::resource('employers', 'EmployerController');
 Route::resource('jobs', 'EmployerJobController');

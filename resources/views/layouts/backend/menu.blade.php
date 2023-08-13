@@ -82,6 +82,24 @@
             'links' => [],
             'children' => [],
         ],
+        [
+            'url' => route("admin.category.index"),
+            'label' => 'Job Category',
+            'icon' => 'nav-icon fas fa-list-ol',
+            'permission' => 'read-category',
+            'path' => request()->is('admin/category*'),
+            'links' => [],
+            'children' => [],
+        ],
+        [
+            'url' => route("admin.testimonial.index"),
+            'label' => 'Testimonial',
+            'icon' => 'nav-icon fas fa-trademark',
+            'permission' => 'read-testimonial',
+            'path' => request()->is('admin/testimonial*'),
+            'links' => [],
+            'children' => [],
+        ],
     ];
 
     // $permissions = Cache::remember('user_permissions_' . auth()->id(), 60 * 60, function() {
