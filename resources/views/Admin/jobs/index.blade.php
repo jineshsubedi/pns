@@ -3,9 +3,9 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="">
     <!-- Content Header (Page header) -->
-    <x-breadcrums title="Employers" :links="[
+    <x-breadcrums title="Jobs" :links="[
             ['title' => 'Dashboard', 'url' => route('admin.dashboard')],
-            ['title' => 'Setting', 'url' => route('admin.employers.index')]
+            ['title' => 'Setting', 'url' => route('admin.jobs.index')]
         ]" />
     <!-- /.content-header -->
 
@@ -14,25 +14,25 @@
             <div class="card">
 
                 <div class="card-header">
-                    <h3 class="card-title">Employers</h3>
+                    <h3 class="card-title">Jobs</h3>
                     <div class="card-tools">
                         @can('create-setting')
-                            <a href="{{ route('admin.employers.create') }}" class="right btn btn-sm btn-info"><i class="fa fa-plus-circle"></i> Add Employer</a>
+                            <a href="{{ route('admin.jobs.create') }}" class="right btn btn-sm btn-info"><i class="fa fa-plus-circle"></i> Add Jobs</a>
                         @endcan
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="container mb-5 row">
                         <div class="col-md-3">
-                            <label for="filter_name">Employer Name</label>
-                            <input type="text" id="filter_name" class="form-control" value="{{ $filters['name'] ?? '' }}" onblur="filterDatas()">
+                            <label for="filter_title">Job Title</label>
+                            <input type="text" id="filter_title" class="form-control" value="{{ $filters['title'] ?? '' }}" onblur="filterDatas()">
                         </div>
                         <div class="col-md-3">
-                            <label for="filter_name">Employer Email</label>
-                            <input type="text" id="filter_email" class="form-control" value="{{ $filters['email'] ?? '' }}" onblur="filterDatas()">
+                            <label for="filter_code">Job Code</label>
+                            <input type="text" id="filter_code" class="form-control" value="{{ $filters['code'] ?? '' }}" onblur="filterDatas()">
                         </div>
                         <div class="col-md-3">
-                            <label for="filter_name">Employer Status</label>
+                            <label for="filter_status">Job Status</label>
                             <select id="filter_status" class="form-control" onblur="filterDatas()">
                                 <option value="">Select Status</option>
                                 @foreach ($data['status'] as $status)
@@ -50,36 +50,35 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
+                                    <th>Title</th>
+                                    <th>Code</th>
+                                    <th>Type</th>
+                                    <th>Category</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($employers as $k=>$employer)
+                                @forelse ($jobs as $k=>$job)
                                 <tr>
                                     <td>{{++$k}}</td>
-                                    <td>{{$employer->name}}</td>
-                                    <td>{{$employer->email}}</td>
-                                    <td>{{$employer->address}}</td>
-                                    <td>{{$employer->phone}}</td>
+                                    <td>{{$job->title}}</td>
+                                    <td>{{$job->code}}</td>
+                                    <td>{{$job->type}}</td>
+                                    <td>{{$job->category_id}}</td>
+                                    <td>{{$job->start_date}}</td>
+                                    <td>{{$job->end_date}}</td>
+                                    <td>{{$job->status_title}}</td>
                                     <td>
-
-                                        <form action="{{route('admin.employers.destroy', $employer->id)}}" method="post">
+                                        <form action="{{route('admin.jobs.destroy', $job->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            @can('read-employer')
-                                            <a href="{{ route('admin.employers.show', $employer->id) }}" class="btn btn-sm btn-info"><i class="far fa-eye"></i></a>
+                                            @can('update-jobs')
+                                            <a href="{{ route('admin.jobs.edit', $job->id) }}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
                                             @endcan
-                                            @can('read-jobs')
-                                            <a href="{{ route('admin.employers.success', $employer->id) }}" class="btn btn-sm btn-info"><i class="fas fa-briefcase"></i></a>
-                                            @endcan
-                                            @can('update-employer')
-                                            <a href="{{ route('admin.employers.edit', $employer->id) }}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
-                                            @endcan
-                                            @can('delete-employer')
+                                            @can('delete-jobs')
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure Want To Delete This?')" ><i class="far fa-trash-alt"></i></button>
                                             @endcan
                                         </form>
@@ -88,9 +87,9 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="9">
                                         <div class="alert alert-secondary">
-                                            No Employer Found!
+                                            No Jobs Found!
                                         </div>
                                     </td>
                                 </tr>
@@ -98,8 +97,8 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="3">
-                                        {{$employers->links()}}
+                                    <td colspan="9">
+                                        {{$jobs->links()}}
                                     </td>
                                 </tr>
                             </tfoot>
@@ -115,16 +114,16 @@
 @section('scripts')
     <script>
         function filterDatas() {
-            const baseUrl = "{{ route('admin.employers.index') }}";
+            const baseUrl = "{{ route('admin.jobs.index') }}";
             const queryParams = [];
 
-            const name = $('#filter_name').val();
-            if (name) {
-                queryParams.push(`name=${name}`);
+            const title = $('#filter_title').val();
+            if (title) {
+                queryParams.push(`title=${title}`);
             }
-            const email = $('#filter_email').val();
-            if (email) {
-                queryParams.push(`email=${email}`);
+            const code = $('#filter_code').val();
+            if (code) {
+                queryParams.push(`code=${code}`);
             }
             const status = $('#filter_status').val();
             if (status) {

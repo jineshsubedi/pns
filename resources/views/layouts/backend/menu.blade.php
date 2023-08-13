@@ -73,6 +73,15 @@
             'links' => [],
             'children' => [],
         ],
+        [
+            'url' => route("admin.jobs.index"),
+            'label' => 'Jobs',
+            'icon' => 'nav-icon fas fa-users',
+            'permission' => 'read-jobs',
+            'path' => request()->is('admin/jobs*'),
+            'links' => [],
+            'children' => [],
+        ],
     ];
 
     // $permissions = Cache::remember('user_permissions_' . auth()->id(), 60 * 60, function() {

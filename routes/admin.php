@@ -12,4 +12,5 @@ Route::resource('roles', 'RoleController');
 Route::resource('users', 'UserController');
 Route::resource('settings', 'SettingController')->except(['show']);
 Route::resource('employers', 'EmployerController');
+Route::resource('jobs', 'EmployerJobController');
 Route::resource('employees', 'EmployeeController')->except(['create', 'update', 'show']);

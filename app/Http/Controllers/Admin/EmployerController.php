@@ -18,9 +18,18 @@ class EmployerController extends Controller
      */
     public function index()
     {
-        $employers = Employer::orderBy('name')->paginate(20);
+        $data['status'] = AppConstant::REQUIRED;
+        $query = Employer::query();
+        $filter = $this->filterQuery($query);
+        $employers = $filter->orderBy('id', 'desc')
+            ->paginate(config('app.settings')->item_perpage ?? 20)
+            ->withQueryString();
+
+        $filters = request()->only(['name', 'email', 'status']);
         return view('Admin.employer.index', [
-            'employers' => $employers
+            'employers' => $employers,
+            'filters' => $filters,
+            'data' => $data
         ]);
     }
 
@@ -126,5 +135,18 @@ class EmployerController extends Controller
     {
         $employer->delete();
         return redirect()->route('admin.employers.index')->with('Employer Deleted Successfully');
+    }
+    private function filterQuery($query)
+    {
+        if (request()->filled('name')) {
+            $query->where('name', 'LIKE', '%' . request()->name . '%');
+        }
+        if (request()->filled('email')) {
+            $query->where('email', request()->email);
+        }
+        if (request()->filled('status')) {
+            $query->where('status', request()->status);
+        }
+        return $query;
     }
 }
