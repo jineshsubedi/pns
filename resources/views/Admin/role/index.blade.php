@@ -62,7 +62,7 @@
                                 <td colspan="3">
                                     {{$roles->links()}}
                                 </td>
-                            </tr>                            
+                            </tr>
                         </tfoot>
                     </table>
                 </div>

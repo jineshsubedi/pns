@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -38,9 +39,15 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        Category::create($request->validated());
+        Validator::make($request->all(), [
+            'title.*' => ['required', 'unique:categories,title'],
+            'icon.*' => ['sometimes'],
+        ])->validate();
+        foreach ($request->title as $k=>$title) {
+            Category::create(['title' => $title, 'icon' => request('icon')[$k]]);
+        }
         return redirect()->route('admin.category.index')->with('success', 'Category Added Successfully');
     }
 

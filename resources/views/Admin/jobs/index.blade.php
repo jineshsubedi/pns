@@ -50,6 +50,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Employer</th>
                                     <th>Title</th>
                                     <th>Code</th>
                                     <th>Type</th>
@@ -64,10 +65,11 @@
                                 @forelse ($jobs as $k=>$job)
                                 <tr>
                                     <td>{{++$k}}</td>
+                                    <td>{{$job->employer->name ?? ''}}</td>
                                     <td>{{$job->title}}</td>
                                     <td>{{$job->code}}</td>
                                     <td>{{$job->type}}</td>
-                                    <td>{{$job->category_id}}</td>
+                                    <td>{{$job->category->title ?? ''}}</td>
                                     <td>{{$job->start_date}}</td>
                                     <td>{{$job->end_date}}</td>
                                     <td>{{$job->status_title}}</td>
@@ -87,7 +89,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="9">
+                                    <td colspan="10">
                                         <div class="alert alert-secondary">
                                             No Jobs Found!
                                         </div>
@@ -97,7 +99,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="9">
+                                    <td colspan="10">
                                         {{$jobs->links()}}
                                     </td>
                                 </tr>

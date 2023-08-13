@@ -92,7 +92,7 @@
             'children' => [],
         ],
         [
-            'url' => route("admin.testimonial.index"),
+            'url' => route("admin.testimonials.index"),
             'label' => 'Testimonial',
             'icon' => 'nav-icon fas fa-trademark',
             'permission' => 'read-testimonial',

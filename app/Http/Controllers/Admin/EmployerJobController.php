@@ -26,7 +26,7 @@ class EmployerJobController extends Controller
         $data['status'] = AppConstant::REQUIRED;
         $query = Vacancy::query();
         $filter = $this->filterQuery($query);
-        $jobs = $filter->orderBy('id', 'desc')
+        $jobs = $filter->with(['employer:id,name', 'category:id,title'])->orderBy('id', 'desc')
             ->paginate(config('app.settings')->item_perpage ?? 20)
             ->withQueryString();
 

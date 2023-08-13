@@ -23,7 +23,7 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonials = Testimonial::orderBy('title')->paginate(30);
+        $testimonials = Testimonial::latest()->paginate(30);
         return view('Admin.testimonial.index', compact('testimonials'));
     }
 
@@ -38,10 +38,10 @@ class TestimonialController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TestimonialRequest $request): RedirectResponse
+    public function store(TestimonialRequest $request)
     {
         Testimonial::create($request->validated());
-        return redirect()->route('admin.testimonial.index')->with('success', 'Testimonial Added Successfully');
+        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial Added Successfully');
     }
 
     /**
@@ -63,10 +63,10 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Testimonial $testimonial): RedirectResponse
+    public function update(TestimonialRequest $request, Testimonial $testimonial): RedirectResponse
     {
         $testimonial->update($request->validated());
-        return redirect()->route('admin.testimonial.index')->with('success', 'Testimonial Updated Successfully');
+        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial Updated Successfully');
     }
 
     /**
@@ -75,6 +75,6 @@ class TestimonialController extends Controller
     public function destroy(Testimonial $testimonial): RedirectResponse
     {
         $testimonial->delete();
-        return redirect()->route('admin.testimonial.index')->with('success', 'Testimonial Deleted Successfully');
+        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial Deleted Successfully');
     }
 }

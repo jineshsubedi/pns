@@ -47,4 +47,12 @@ class Vacancy extends Model
             get: fn() => $this->image != null ? Imagetool::getThumbPath($this->image) : null,
         );
     }
+    public function employer()
+    {
+        return $this->belongsTo(Employer::class, 'employer_id');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }
