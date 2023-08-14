@@ -37,13 +37,13 @@ class Employer extends Authenticatable
     public function logoPath():Attribute
     {
         return Attribute::make(
-            get: fn() => $this->logo != null ? Imagetool::getImagePath($this->logo) : url(asset('images/logo.png')),
+            get: fn() => $this->logo != null ? Imagetool::getImagePath($this->logo) : "https://ui-avatars.com/api/?name=".$this->name."&size=100",
         );
     }
     public function logoThumb():Attribute
     {
         return Attribute::make(
-            get: fn() => $this->logo != null ? Imagetool::getThumbPath($this->logo) : url(asset('images/logo.png')),
+            get: fn() => $this->logo != null ? Imagetool::getThumbPath($this->logo) : "https://ui-avatars.com/api/?name=".$this->name."&size=100",
         );
     }
 }

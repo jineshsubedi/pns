@@ -4,7 +4,13 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 
-Route::view('/', 'welcome');
+Route::get('/', 'Front\FrontendController@index');
+Route::get('/jobs', 'Front\FrontendController@jobs');
+Route::get('/jobs/{id}', 'Front\FrontendController@jobdetail')->name('front.job.detail');
+Route::get('/about', 'Front\FrontendController@about');
+Route::get('/contact', 'Front\FrontendController@contact');
+Route::get('/freelancer', 'Front\FrontendController@freelancer');
+Route::get('/ceritifcation', 'Front\FrontendController@ceritifcation');
 
 
 Route::get('employee/login', 'Employee\AuthController@login')->name('employee.login');

@@ -31,7 +31,6 @@ class AppServiceProvider extends ServiceProvider
             'app.settings' => $setting,
         );
         config($config);
-
         Setting::observe(SettingObserver::class);
     }
 }
