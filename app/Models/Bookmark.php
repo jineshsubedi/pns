@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VacancyApply extends Model
+class Bookmark extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['vacancy_id', 'employee_id', 'status'];
+    protected $fillable = ['vacancy_id', 'employee_id'];
 
     public function vacancy()
     {

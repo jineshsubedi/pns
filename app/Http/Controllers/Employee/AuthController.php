@@ -32,6 +32,24 @@ class AuthController extends Controller
         }
     }
 
+    public function vloginAuth(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            if (auth()->guard('employee')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+                return redirect()->intended('/employee/dashboard');
+            }elseif (auth()->guard('employer')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+                return redirect()->intended('/employer/dashboard');
+            }{
+                $errordata = array('email' => 'Username or Password is incorrect',);
+                return back()->withErrors($errordata)->withInput();
+            }
+        }
+    }
+
     public function logout(Request $request): RedirectResponse
     {
         auth()->guard('employee')->logout();

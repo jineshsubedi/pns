@@ -18,6 +18,7 @@ rel="stylesheet">
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/css/LineIcons.2.0.css')}}" />
+    <link rel="stylesheet" href="{{asset('frontend/css/animate.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/css/tiny-slider.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/css/glightbox.min.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/css/main.css')}}" />

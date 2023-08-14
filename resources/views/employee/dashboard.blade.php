@@ -1,80 +1,188 @@
-@extends('layouts.employee.app')
+@extends('layouts.frontend.app')
 @section('content')
-<!-- Content Wrapper. Contains page content -->
-<div class="">
-    <!-- Content Header (Page header) -->
-    <x-breadcrums
-        title="Dashboard"
-        :links="[
-            ['title' => 'Dashboard', 'url' => route('employee.dashboard')]
-        ]"
-    />
-    <!-- /.content-header -->
 
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+    <!-- Main Content Start -->
+    <div class="resume section">
+        <div class="container">
+            <div class="resume-inner">
+                <div class="row">
+                    <!-- Start Main Content -->
+                    <div class="col-lg-4 col-12">
+                        <div class="dashbord-sidebar">
+                            @include('layouts.employee.sidebar')
+                        </div>
+                    </div>
+                    <!-- End Main Content -->
+                    <div class="col-lg-8 col-12">
+                        <div class="inner-content">
+                            <!-- Start Personal Top Content -->
+                            <div class="personal-top-content">
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-5 col-12">
+                                        <div class="name-head">
+                                            <a class="mb-2" href="#"><img class="circle-54"
+                                                    src="assets/images/resume/avater.png" alt=""></a>
+                                            <h4><a class="name" href="#">{{$me->name}}</a></h4>
+                                            <p><a class="deg" href="#">{{$me->detail->designation ?? ''}}</a></p>
+                                            <ul class="social">
+                                                <li><a href="#"><i class="lni lni-facebook-original"></i></a></li>
+                                                <li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
+                                                <li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
+                                                <li><a href="#"><i class="lni lni-dribbble"></i></a></li>
+                                                <li><a href="#"><i class="lni lni-pinterest"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7 col-12">
+                                        <div class="content-right">
+                                            <h5 class="title-main">Contact Info</h5>
+                                            <!-- Single List -->
+                                            <div class="single-list">
+                                                <h5 class="title">Location</h5>
+                                                <p>{{$me->address ?? ''}}</p>
+                                            </div>
+                                            <!-- Single List -->
+                                            <!-- Single List -->
+                                            <div class="single-list">
+                                                <h5 class="title">E-mail</h5>
+                                                <p>{{$me->email ?? ''}}</p>
+                                            </div>
+                                            <!-- Single List -->
+                                            <!-- Single List -->
+                                            <div class="single-list">
+                                                <h5 class="title">Phone</h5>
+                                                <p>{{$me->phone ?? ''}}</p>
+                                            </div>
+                                            <!-- Single List -->
+                                            <!-- Single List -->
+                                            <div class="single-list">
+                                                <h5 class="title">Marital Status</h5>
+                                                <p><a href="#">{{$me->detail->marital_status ?? ''}}</a></p>
+                                            </div>
+                                            <!-- Single List -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Personal Top Content -->
+                            <!-- Start Single Section -->
+                            <div class="single-section">
+                                <h4>About</h4>
+                                <p class="font-size-4 mb-8">{!! $me->detail->bio ?? '' !!}</p>
+                            </div>
+                            <!-- End Single Section -->
+                            <!-- Start Single Section -->
+                            <div class="single-section skill">
+                                <h4>Skills</h4>
+                                <ul class="list-unstyled d-flex align-items-center flex-wrap">
+                                    @foreach ($me->detail->skills ?? [] as $skill)
+                                    <li>
+                                        <a >{{$skill}}</a>
+                                    </li>
 
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <!-- End Single Section -->
+                            <!-- Start Single Section -->
+                            <div class="single-section exprerience">
+                                <h4>Work Exprerience</h4>
+                                <!-- Single Exp -->
+                                <div class="single-exp mb-30">
+                                    <div class="d-flex align-items-center pr-11 mb-9 flex-wrap flex-sm-nowrap">
+                                        <div class="image">
+                                            <img src="assets/images/resume/work1.png" alt="#">
+                                        </div>
+                                        <div class="w-100 mt-n2">
+                                            <h3 class="mb-0">
+                                                <a href="#">Lead Product Designer</a>
+                                            </h3>
+                                            <a href="#">Airabnb</a>
+                                            <div class="d-flex align-items-center justify-content-md-between flex-wrap">
+                                                <a href="#">Jun 2020 - April 2023- 3 years</a>
+                                                <a href="#" class="font-size-3 text-gray">
+                                                    <span class="mr-2" style="margin-top: -2px"><i
+                                                            class="lni lni-map-marker"></i></span>New York, USA</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Exp -->
+                                <!-- Single Exp -->
+                                <div class="single-exp mb-30">
+                                    <div class="d-flex align-items-center pr-11 mb-9 flex-wrap flex-sm-nowrap">
+                                        <div class="image">
+                                            <img src="assets/images/resume/work2.png" alt="#">
+                                        </div>
+                                        <div class="w-100 mt-n2">
+                                            <h3 class="mb-0">
+                                                <a href="#">Senior UI/UX Designer</a>
+                                            </h3>
+                                            <a href="#">Google Inc</a>
+                                            <div class="d-flex align-items-center justify-content-md-between flex-wrap">
+                                                <a href="#">Jun 2020 - April 2023- 3 years</a>
+                                                <a href="#" class="font-size-3 text-gray">
+                                                    <span class="mr-2" style="margin-top: -2px"><i
+                                                            class="lni lni-map-marker"></i></span>New York, USA</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Exp -->
+                            </div>
+                            <!-- End Single Section -->
+                            <!-- Start Single Section -->
+                            <div class="single-section education">
+                                <h4>Education</h4>
+                                <!-- Single Edu -->
+                                <div class="single-edu mb-30">
+                                    <div class="d-flex align-items-center pr-11 mb-9 flex-wrap flex-sm-nowrap">
+                                        <div class="image">
+                                            <img src="assets/images/resume/edu1.svg" alt="#">
+                                        </div>
+                                        <div class="w-100 mt-n2">
+                                            <h3 class="mb-0">
+                                                <a href="#">Masters in Art Design</a>
+                                            </h3>
+                                            <a href="#">Harvard University</a>
+                                            <div class="d-flex align-items-center justify-content-md-between flex-wrap">
+                                                <a href="#">Jun 2020 - April 2023- 3 years</a>
+                                                <a href="#" class="font-size-3 text-gray">
+                                                    <span class="mr-2" style="margin-top: -2px"><i
+                                                            class="lni lni-map-marker"></i></span>Brylin, USA</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Edu -->
+                                <!-- Single Edu -->
+                                <div class="single-edu mb-30">
+                                    <div class="d-flex align-items-center pr-11 mb-9 flex-wrap flex-sm-nowrap">
+                                        <div class="image">
+                                            <img src="assets/images/resume/edu2.svg" alt="#">
+                                        </div>
+                                        <div class="w-100 mt-n2">
+                                            <h3 class="mb-0">
+                                                <a href="#">Bachelor in Software Engineering</a>
+                                            </h3>
+                                            <a href="#">Manipal Institute of Technology</a>
+                                            <div class="d-flex align-items-center justify-content-md-between flex-wrap">
+                                                <a href="#">Fed 2019 - April 2023 - 4 years </a>
+                                                <a href="#" class="font-size-3 text-gray">
+                                                    <span class="mr-2" style="margin-top: -2px"><i
+                                                            class="lni lni-map-marker"></i></span>New York, USA</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Edu -->
+                            </div>
+                            <!-- End Single Section -->
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div><!-- /.card -->
-          </div>
-          <!-- /.col-md-6 -->
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <!-- /.col-md-6 -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+    <!-- Main Content end -->
 @endsection
