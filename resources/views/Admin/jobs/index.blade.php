@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <x-breadcrums title="Jobs" :links="[
             ['title' => 'Dashboard', 'url' => route('admin.dashboard')],
-            ['title' => 'Setting', 'url' => route('admin.jobs.index')]
+            ['title' => 'Jobs', 'url' => route('admin.jobs.index')]
         ]" />
     <!-- /.content-header -->
 
@@ -78,6 +78,7 @@
                                             @csrf
                                             @method('DELETE')
                                             @can('update-jobs')
+                                            <a href="{{ route('admin.jobs.applicants', $job->id) }}" class="btn btn-sm btn-success"><i class="fas fa-users"></i></a>
                                             <a href="{{ route('admin.jobs.edit', $job->id) }}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
                                             @endcan
                                             @can('delete-jobs')

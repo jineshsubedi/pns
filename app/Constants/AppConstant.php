@@ -9,5 +9,6 @@ class AppConstant{
         ['value' => 1, 'title' => 'Yes']
     ];
     const TYPE = ['Full Time', 'Part Time', 'Contract'];
+    const APPLY_STATUS = ['Pending', 'Interview', 'Assisment', 'Final Interview', 'Selected'];
     const ACTIVE = 1;
 }

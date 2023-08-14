@@ -47,4 +47,8 @@ class Employee extends Authenticatable
             get: fn() => $this->avatar != null ? Imagetool::getThumbPath($this->avatar) : "https://ui-avatars.com/api/?name=".$this->name."&size=100",
         );
     }
+    public function detail()
+    {
+        return $this->belongsTo(EmployeeDetail::class, 'id');
+    }
 }

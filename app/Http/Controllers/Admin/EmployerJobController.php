@@ -9,6 +9,7 @@ use App\Library\Imagetool;
 use App\Models\Category;
 use App\Models\Employer;
 use App\Models\Vacancy;
+use App\Models\VacancyApply;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -117,5 +118,14 @@ class EmployerJobController extends Controller
             $query->where('status', request()->status);
         }
         return $query;
+    }
+
+    public function applicants($id)
+    {
+        $job = Vacancy::findOrFail($id);
+        $applicants = VacancyApply::with(['employee' => function($item){
+            $item->with(['detail']);
+        }])->where('vacancy_id', $id)->get();
+        return view('Admin.jobs.applicants', compact('job', 'applicants'));
     }
 }
