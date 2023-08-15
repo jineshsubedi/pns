@@ -28,6 +28,8 @@ Route::middleware('isEmployee')->prefix('employee')->as('employee.')->group(func
 
     route::get('/bookmarked', 'Employee\DashboardController@bookmarked')->name('bookmarked');
     route::get('/jobs', 'Employee\DashboardController@jobs')->name('jobs');
+    route::post('jobs/{id}/bookmarked', 'Employee\DashboardController@tooglebookmarked')->name('tooglebookmarked');
+    route::post('jobs/{id}/apply', 'Employee\DashboardController@apply')->name('apply');
     route::get('/change_password', 'Employee\DashboardController@change_password')->name('change_password');
     route::post('/change_password', 'Employee\DashboardController@save_change_password')->name('save_change_password');
 });

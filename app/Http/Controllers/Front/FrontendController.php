@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\Vacancy;
+use App\Models\VacancyApply;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -43,7 +45,18 @@ class FrontendController extends Controller
     {
         $job = Vacancy::findOrFail($id);
         $job->load(['employer', 'category']);
-        return view('frontend.jobdetail', compact('job'));
+        $employee = auth()->guard('employee')->user();
+        $checkSaveJob = false;
+        $checkJobApply = false;
+        if(isset($employee->id) && (Bookmark::where('vacancy_id', $job->id)->where('employee_id', $employee->id)->first()))
+        {
+            $checkSaveJob = true;
+        }
+        if(isset($employee->id) && (VacancyApply::where('vacancy_id', $job->id)->where('employee_id', $employee->id)->first()))
+        {
+            $checkJobApply = true;
+        }
+        return view('frontend.jobdetail', compact('job', 'checkSaveJob', 'checkJobApply'));
     }
     public function about()
     {
