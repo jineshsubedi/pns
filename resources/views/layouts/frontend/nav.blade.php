@@ -32,9 +32,9 @@
                         <!-- navbar collapse -->
                         <div class="button">
                             @if(auth()->guard('employee')->check())
-                                <a  href="#">Employee Dashboard</a>
+                                <a  href="{{route('employee.dashboard')}}">Employee Dashboard</a>
                             @elseif(auth()->guard('employer')->check())
-                                <a  href="#">Employee Dashboard</a>
+                                <a  href="{{route('employer.dashboard')}}">Employer Dashboard</a>
                             @else
                             <a href="javacript:" data-toggle="modal" data-target="#login" class="login"><i
                                 class="lni lni-lock-alt"></i> Login</a>

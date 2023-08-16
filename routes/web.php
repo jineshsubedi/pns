@@ -32,6 +32,8 @@ Route::middleware('isEmployee')->prefix('employee')->as('employee.')->group(func
     route::post('jobs/{id}/apply', 'Employee\DashboardController@apply')->name('apply');
     route::get('/change_password', 'Employee\DashboardController@change_password')->name('change_password');
     route::post('/change_password', 'Employee\DashboardController@save_change_password')->name('save_change_password');
+    route::get('/profile', 'Employee\DashboardController@profile')->name('profile');
+    route::put('/profile', 'Employee\DashboardController@updateProfile')->name('updateProfile');
 });
 
 Route::middleware('isEmployer')->prefix('employer')->as('employer.')->group(function () {

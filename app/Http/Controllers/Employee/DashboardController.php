@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Models\Bookmark;
 use App\Models\Employee;
+use App\Models\EmployeeDetail;
 use App\Models\Vacancy;
 use App\Models\VacancyApply;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class DashboardController extends Controller
     {
         $me = Employee::findOrFail(auth()->guard('employee')->user()->id);
         $me->load(['detail']);
-        return view('employee.dashboard', compact('me'));
+        $skills = $me->detail ? ($me->detail->skills ? explode(',', $me->detail->skills) : []) : [];
+        return view('employee.dashboard', compact('me', 'skills'));
     }
 
     public function bookmarked()
@@ -79,5 +81,44 @@ class DashboardController extends Controller
         } else {
             return redirect()->back()->withErrors(['old_password' => 'Incorrect current password.']);
         }
+    }
+
+    public function profile()
+    {
+        $user = auth()->guard('employee')->user();
+        $user->load(['detail', 'education', 'experience']);
+        return view('employee.profile', compact('user'));
+    }
+    public function updateProfile(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'designation' => 'required',
+            'dob' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'bio' => 'required|max:300',
+            'gender' => 'sometimes',
+            'marital_status' => 'sometimes',
+            'skills' => 'required',
+        ]);
+        $user = auth()->guard('employee')->user();
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone' => $request->phone
+        ]);
+        EmployeeDetail::updateOrCreate(['employee_id' => $user->id],[
+            'employee_id' => $user->id,
+            'bio'   => $request->bio,
+            'designation'   => $request->designation,
+            'dob'   => $request->dob,
+            'gender'   => $request->gender,
+            'marital_status'   => $request->marital_status,
+            'skills'   => $request->skills,
+        ]);
+        return redirect()->route('employee.dashboard');
     }
 }

@@ -1,5 +1,8 @@
 <ul>
     <li>
+        <a @if(request()->segment(2)=='profile') class="active" @endif href="{{route('employee.profile')}}"><i class="lni lni-pencil-alt"></i> Edit Profile</a>
+    </li>
+    <li>
         <a @if(request()->segment(2)=='dashboard') class="active" @endif href="{{ route('employee.dashboard') }}"><i class="lni lni-clipboard"></i> My Resume</a>
     </li>
     <li>
