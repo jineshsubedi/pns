@@ -44,4 +44,12 @@ Route::middleware('isEmployee')->prefix('employee')->as('employee.')->group(func
 Route::middleware('isEmployer')->prefix('employer')->as('employer.')->group(function () {
     Route::get('/dashboard', 'Employer\DashboardController@index')->name('dashboard');
     Route::post('/logout', 'Employer\AuthController@logout')->name('logout');
+
+    route::get('/jobs', 'Employer\DashboardController@jobs')->name('jobs');
+    route::post('/jobs', 'Employer\DashboardController@saveJobs')->name('saveJobs');
+    route::get('/resumes', 'Employer\DashboardController@resumes')->name('resumes');
+    route::get('/change_password', 'Employer\DashboardController@change_password')->name('change_password');
+    route::post('/change_password', 'Employer\DashboardController@save_change_password')->name('save_change_password');
+    route::get('/profile', 'Employer\DashboardController@profile')->name('profile');
+    route::put('/profile', 'Employer\DashboardController@updateProfile')->name('updateProfile');
 });

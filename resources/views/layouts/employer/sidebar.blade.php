@@ -1,22 +1,21 @@
-<!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-  <a href="{{url('/')}}" class="brand-link">
-    <img src="{{config('app.settings')->logo_path ?? '/images/logo.png'}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">{{ config('app.settings')->name ?? env('APP_NAME') }}</span>
-  </a>
-  <div class="sidebar">
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <div class="image">
-        <img src="https://ui-avatars.com/api/?name={{Auth::guard('employer')->user()->name}}&size=100" class="img-circle elevation-2" alt="User Image">
-      </div>
-      <div class="info">
-        <a href="#" class="d-block">{{ Auth::guard('employer')->user()->name }}</a>
-      </div>
-    </div>
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        @include('layouts.employer.menu')
-      </ul>
-    </nav>
-  </div>
-</aside>
+<ul>
+    <li>
+        <a @if(request()->segment(2)=='profile') class="active" @endif href="{{route('employer.profile')}}"><i class="lni lni-user"></i> Edit Profile</a>
+    </li>
+    <li>
+        <a @if(request()->segment(2)=='dashboard') class="active" @endif href="{{route('employer.dashboard')}}"><i class="lni lni-briefcase"></i> Published Jobs</a>
+    </li>
+    <li>
+        <a @if(request()->segment(2)=='jobs') class="active" @endif href="{{route('employer.jobs')}}"><i class="lni lni-pencil-alt"></i> Add Jobs</a>
+    </li>
+    <li><a @if(request()->segment(2)=='resumes') class="active" @endif href="{{route('employer.resumes')}}"><i class="lni lni-envelope"></i> Manage
+            Resumes</a></li>
+    <li>
+        <a @if(request()->segment(2)=='change_password') class="active" @endif href="{{route('employer.change_password')}}"><i class="lni lni-lock"></i> Change Password</a>
+    </li>
+    <li>
+        <x-sign-out-button>
+            <i class="lni lni-upload"></i> Sign Out
+        </x-sign-out-button>
+    </li>
+</ul>
