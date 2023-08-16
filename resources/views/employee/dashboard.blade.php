@@ -67,7 +67,7 @@
                             <!-- End Personal Top Content -->
                             <!-- Start Single Section -->
                             <div class="single-section">
-                                <h4>About</h4>
+                                <h4>Bio</h4>
                                 <p class="font-size-4 mb-8">{!! $me->detail->bio ?? '' !!}</p>
                             </div>
                             <!-- End Single Section -->
@@ -92,7 +92,9 @@
                                     <div class="single-exp mb-30">
                                         <div class="d-flex align-items-center pr-11 mb-9 flex-wrap flex-sm-nowrap">
                                             <div class="w-100 mt-n2">
+                                                <span class="btn" style="float:right;color:Red;"><a href="{{route('employee.deleteExperience', $exp->id)}}" onclick="return confirm('Are You Sure?')"><i class="lni lni-remove-file"></i></a></span>
                                                 <h3 class="mb-0">
+
                                                     <a>{{$exp->position}}</a>
                                                 </h3>
                                                 <a>{{$exp->organization}}</a>
@@ -116,6 +118,7 @@
                                     <div class="single-edu mb-30">
                                         <div class="d-flex align-items-center pr-11 mb-9 flex-wrap flex-sm-nowrap">
                                             <div class="w-100 mt-n2">
+                                                <span class="btn" style="float:right;color:Red;"><a href="{{route('employee.deleteEducation', $edu->id)}}" onclick="return confirm('Are You Sure?')"><i class="lni lni-remove-file"></i></a></span>
                                                 <h3 class="mb-0">
                                                     <a>{{$edu->level}}</a>
                                                 </h3>
@@ -152,41 +155,74 @@
                                 <h3>Education Form</h3>
                                 {{-- <p>Log in to continue your account and explore new jobs.</p> --}}
                             </div>
-                            <form action="{{ route('v_login') }}" method="post">
+                            <form action="{{ route('employee.saveEducation') }}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="email" class="label">E-mail</label>
-                                    <input name="email" type="email" class="form-control" placeholder="example@gmail.com"
-                                        id="email" required>
-                                    @if ($errors->has('email'))
+                                    <label for="level" class="label">Level*</label>
+                                    <input name="level" type="text" class="form-control" placeholder="level"
+                                        id="level" required>
+                                    @if ($errors->has('level'))
                                         <span class="error invalid-feedback">
-                                            {{ $errors->first('email') }}
+                                            {{ $errors->first('level') }}
                                         </span>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="password" class="label">Password</label>
+                                    <label for="faculty" class="label">Faculty</label>
                                     <div class="position-relative">
-                                        <input type="password" name="password" class="form-control" id="password"
-                                            placeholder="Enter password" required>
-                                        @if ($errors->has('password'))
+                                        <input type="text" name="faculty" class="form-control" id="faculty"
+                                            placeholder="Enter faculty">
+                                        @if ($errors->has('faculty'))
                                             <span class="error invalid-feedback">
-                                                {{ $errors->first('password') }}
+                                                {{ $errors->first('faculty') }}
                                             </span>
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group d-flex flex-wrap justify-content-between">
-                                    <!-- Default checkbox -->
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="flexCheckDefault" />
-                                        <label class="form-check-label" for="flexCheckDefault">Remember password</label>
+                                <div class="form-group">
+                                    <label for="university" class="label">University*</label>
+                                    <div class="position-relative">
+                                        <input type="text" name="university" class="form-control" id="university"
+                                            placeholder="Enter university" required>
+                                        @if ($errors->has('university'))
+                                            <span class="error invalid-feedback">
+                                                {{ $errors->first('university') }}
+                                            </span>
+                                        @endif
                                     </div>
-                                    <a href="#" class="font-size-3 text-dodger line-height-reset">Forget Password</a>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address" class="label">Address</label>
+                                    <input name="address" type="text" class="form-control"
+                                        id="address">
+                                    @if ($errors->has('address'))
+                                        <span class="error invalid-feedback">
+                                            {{ $errors->first('address') }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="start" class="label">From*</label>
+                                    <input name="start" type="date" class="form-control"
+                                        id="start" required>
+                                    @if ($errors->has('start'))
+                                        <span class="error invalid-feedback">
+                                            {{ $errors->first('start') }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="end" class="label">To</label>
+                                    <input name="end" type="date" class="form-control"
+                                        id="end">
+                                    @if ($errors->has('end'))
+                                        <span class="error invalid-feedback">
+                                            {{ $errors->first('end') }}
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group mb-8 button">
-                                    <button class="btn ">Log in
+                                    <button class="btn ">SAVE
                                     </button>
                                 </div>
                             </form>
@@ -209,41 +245,62 @@
                                 <h3>Experience Form</h3>
                                 {{-- <p>Log in to continue your account and explore new jobs.</p> --}}
                             </div>
-                            <form action="{{ route('v_login') }}" method="post">
+                            <form action="{{ route('employee.saveExperience') }}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="email" class="label">E-mail</label>
-                                    <input name="email" type="email" class="form-control" placeholder="example@gmail.com"
-                                        id="email" required>
-                                    @if ($errors->has('email'))
+                                    <label for="organization" class="label">Organization*</label>
+                                    <input name="organization" type="text" class="form-control" placeholder=""
+                                        id="organization" required>
+                                    @if ($errors->has('organization'))
                                         <span class="error invalid-feedback">
-                                            {{ $errors->first('email') }}
+                                            {{ $errors->first('organization') }}
                                         </span>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="password" class="label">Password</label>
+                                    <label for="position" class="label">Designation*</label>
                                     <div class="position-relative">
-                                        <input type="password" name="password" class="form-control" id="password"
-                                            placeholder="Enter password" required>
-                                        @if ($errors->has('password'))
+                                        <input type="text" name="position" class="form-control" id="position"
+                                            placeholder="Enter position" required>
+                                        @if ($errors->has('position'))
                                             <span class="error invalid-feedback">
-                                                {{ $errors->first('password') }}
+                                                {{ $errors->first('position') }}
                                             </span>
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group d-flex flex-wrap justify-content-between">
-                                    <!-- Default checkbox -->
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="flexCheckDefault" />
-                                        <label class="form-check-label" for="flexCheckDefault">Remember password</label>
-                                    </div>
-                                    <a href="#" class="font-size-3 text-dodger line-height-reset">Forget Password</a>
+                                <div class="form-group">
+                                    <label for="address" class="label">Address</label>
+                                    <input name="address" type="text" class="form-control"
+                                        id="address">
+                                    @if ($errors->has('address'))
+                                        <span class="error invalid-feedback">
+                                            {{ $errors->first('address') }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="start" class="label">From*</label>
+                                    <input name="start" type="date" class="form-control"
+                                        id="start" required>
+                                    @if ($errors->has('start'))
+                                        <span class="error invalid-feedback">
+                                            {{ $errors->first('start') }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="end" class="label">To</label>
+                                    <input name="end" type="date" class="form-control"
+                                        id="end">
+                                    @if ($errors->has('end'))
+                                        <span class="error invalid-feedback">
+                                            {{ $errors->first('end') }}
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group mb-8 button">
-                                    <button class="btn ">Log in
+                                    <button class="btn ">SAVE
                                     </button>
                                 </div>
                             </form>

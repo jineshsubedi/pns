@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ExmployeeEducationRequest;
+use App\Http\Requests\ExmployeeExperienceRequest;
 use App\Models\Bookmark;
 use App\Models\Employee;
 use App\Models\EmployeeDetail;
+use App\Models\EmployeeEducation;
+use App\Models\EmployeeExperience;
 use App\Models\Vacancy;
 use App\Models\VacancyApply;
 use Illuminate\Http\Request;
@@ -120,5 +124,53 @@ class DashboardController extends Controller
             'skills'   => $request->skills,
         ]);
         return redirect()->route('employee.dashboard');
+    }
+
+    public function saveExperience(ExmployeeExperienceRequest $request)
+    {
+        $user = auth()->guard('employee')->user();
+        $data = array_merge(
+            [
+                'employee_id' => $user->id
+            ], $request->validated()
+        );
+        // return $data;
+        EmployeeExperience::insert($data);
+        return back()->with('success', 'Experience Added');
+    }
+    public function deleteExperience($id)
+    {
+        $user = auth()->guard('employee')->user();
+        $exp = EmployeeExperience::findOrFail($id);
+        if (!isset($exp->id)) {
+            return back()->with('danger', 'Not Found');
+        }
+        if ($user->id !== $exp->employee_id) {
+            return back()->with('danger', 'Not Authorized');
+        }
+        $exp->delete();
+        return back()->with('success', 'Experience deleted');
+    }
+    public function saveEducation(ExmployeeEducationRequest $request)
+    {
+        $user = auth()->guard('employee')->user();
+        EmployeeEducation::create($request->validated() +
+        [
+            'employee_id' => $user->id
+        ]);
+        return back()->with('success', 'Education Added');
+    }
+    public function deleteEducation($id)
+    {
+        $user = auth()->guard('employee')->user();
+        $exp = EmployeeEducation::findOrFail($id);
+        if (!isset($exp->id)) {
+            return back()->with('danger', 'Not Found');
+        }
+        if ($user->id !== $exp->employee_id) {
+            return back()->with('danger', 'Not Authorized');
+        }
+        $exp->delete();
+        return back()->with('success', 'Education deleted');
     }
 }
