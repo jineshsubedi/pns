@@ -208,9 +208,9 @@
         $('.select2').select2();
     });
     $('.summernote').summernote({
-            height: 250,
-            dialogsInBody: true
-        });
+        height: 250,
+        dialogsInBody: true
+    });
     $('#logo').change(function() {
         var file = this.files[0];
         var reader = new FileReader();

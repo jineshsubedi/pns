@@ -24,8 +24,8 @@
                                 <li class="nav-item">
                                     <a @if(request()->segment(1)=='') class="active" @endif href="{{url('/')}}">Home</a></li>
                                 <li class="nav-item"><a @if(request()->segment(1)=='jobs') class="active" @endif href="{{url('/jobs')}}">Job</a></li>
-                                <li class="nav-item"><a @if(request()->segment(1)=='freelancing') class="active" @endif href="#">Freelancing</a></li>
-                                <li class="nav-item"><a @if(request()->segment(1)=='certification') class="active" @endif href="#">Certifications</a></li>
+                                <li class="nav-item"><a @if(request()->segment(1)=='freelancer') class="active" @endif href="{{url('/freelancer')}}">Freelancing</a></li>
+                                <li class="nav-item"><a @if(request()->segment(1)=='certification') class="active" @endif href="{{url('/certification')}}">Certifications</a></li>
                                 <li class="nav-item"><a @if(request()->segment(1)=='about') class="active" @endif href="{{url('/about')}}">About Us</a> </li>
                             </ul>
                         </div>

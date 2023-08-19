@@ -18,43 +18,40 @@
                             <div class="alerts-list">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <p>Title</p>
+                                        <p>Name</p>
                                     </div>
                                     <div class="col-md-3">
-                                        <p>Contract Type</p>
+                                        <p>Email</p>
                                     </div>
                                     <div class="col-md-3">
-                                        <p>Deadline</p>
+                                        <p>Type</p>
                                     </div>
                                     <div class="col-md-3">
                                         <p>Status</p>
                                     </div>
                                 </div>
                             </div>
-                            @foreach ($myjobs as $job)
+                            @foreach ($applies as $apply)
                                 <div class="alerts-content">
                                     <div class="row align-items-center justify-content-center">
                                         <div class="col-md-3">
-                                            <h3><a href="{{route('front.job.detail', $job->id)}}" target="_blank">{{$job->title ?? ''}}</a></h3>
+                                            <a href="{{route('front.freelancer.show', $apply->employee_id)}}" target="_blank">
+                                                <h3>{{$apply->employee->name ?? ''}}</h3>
+                                            </a>
                                         </div>
                                         <div class="col-md-3">
-                                            <p><span class="full-time">{{$job->type ?? ''}}</span></p>
+                                            <p>{{$apply->employee->email ?? ''}}</p>
                                         </div>
                                         <div class="col-md-3">
-                                            <p>{{$job->end_date}}</p>
+                                            <p>{{$apply->employee->is_freelancer ? 'Freelancer' : 'Individual'}}</p>
                                         </div>
                                         <div class="col-md-3">
-                                            <p>{{$job->status_title}}</p>
+                                            <p>{{$apply->employee->status_title}}</p>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                        <!-- Pagination -->
-                        <div class="pagination left pagination-md-center">
-                            {{$myjobs->links()}}
-                        </div>
-                        <!-- End Pagination -->
                     </div>
                 </div>
             </div>

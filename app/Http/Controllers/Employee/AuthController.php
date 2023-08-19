@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\front\EmployeeSignupRequest;
+use App\Models\Employee;
+use App\Models\Employer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -48,6 +51,32 @@ class AuthController extends Controller
                 return back()->withErrors($errordata)->withInput();
             }
         }
+    }
+    public function singup(EmployeeSignupRequest $request)
+    {
+        if ($request->choice == 'Employee') {
+            Employee::create([
+                'name'          => $request->name,
+                'email'         => $request->email,
+                'password'      => bcrypt($request->password),
+                'is_freelancer' => 1
+            ]);
+            if (auth()->guard('employee')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+                return redirect()->intended('/employee/dashboard');
+            }
+        } else if ($request->choice == 'Employer') {
+            Employer::create([
+                'name'     => $request->name,
+                'email'    => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+            if (auth()->guard('employer')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+                return redirect()->intended('/employer/dashboard');
+            }
+        } else {
+            return back()->with('warning', 'Unable to Register');
+        }
+
     }
 
     public function logout(Request $request): RedirectResponse

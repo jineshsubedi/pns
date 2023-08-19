@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Employer;
 
 use App\Constants\AppConstant;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\front\VacancyRequest;
+use App\Library\Imagetool;
 use App\Models\Category;
 use App\Models\Vacancy;
+use App\Models\VacancyApply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -70,8 +73,40 @@ class DashboardController extends Controller
         $categories = Category::orderBy('title')->get();
         return view('employer.jobs', compact('data', 'categories'));
     }
-    public function saveJobs(Request $request)
+    public function saveJobs(VacancyRequest $request)
     {
-
+        $user = auth()->guard('employer')->user();
+        $code = $this->generateCode(request('title'));
+        $logo = '';
+        if ($request->hasFile('logoFile')) {
+            $file = $request->file('logoFile');
+            $logo = 'employer/jobs/' . time() . '.' . $file->getClientOriginalExtension();
+            Imagetool::storeImage($file, $logo);
+        }
+        Vacancy::create($request->validated() + [
+            'code'        => $code,
+            'image'       => $logo,
+            'employer_id' => $user->id
+        ]);
+        return redirect()->route('employer.dashboard')->with('success', 'Job Created Successfully');
+    }
+    public function generateCode($title)
+    {
+        $words = explode(' ', $title);
+        $code = '';
+        foreach ( $words as $word ) {
+            $code .= strtoupper(substr($word, 0, 1));
+        }
+        $timestamp = now()->format('ymdis');
+        // You might want to make sure the code is unique
+        // and handle any duplicates or collisions here.
+        return $code . $timestamp;
+    }
+    public function resumes(Request $request)
+    {
+        $user = auth()->guard('employer')->user();
+        $job_id = $request->job_id ?? (Vacancy::where('employer_id', $user->id)->latest()->first()->id ?? 0);
+        $applies = VacancyApply::where('vacancy_id', $job_id)->with(['employee'])->get();
+        return view('employer.resumes', compact('applies'));
     }
 }

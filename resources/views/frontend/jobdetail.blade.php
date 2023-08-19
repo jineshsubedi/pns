@@ -62,22 +62,28 @@
                     <div class="sidebar-widget">
                         <div class="inner">
                             <div class="row m-n2 button">
-                                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-2">
-                                    <form action="{{route('employee.tooglebookmarked', $job->id)}}" method="post">
-                                        @csrf
-                                        <button type="submit" class="d-block btn">
-                                            <i class="fa fa-heart-o mr-1"></i>
-                                            {{$checkSaveJob ? 'Remove Job' : 'Save Job'}}
-                                        </button>
-                                    </form>
-                                </div>
-                                @if(!$checkJobApply)
-                                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-2">
-                                    <form action="{{route('employee.apply', $job->id)}}" method="post">
-                                        @csrf
-                                        <button type="submit" class="d-block btn btn-alt"><i class="fa fa-heart-o mr-1"></i> Apply Now</button>
-                                    </form>
-                                </div>
+                                @if(auth()->guard('employee')->check())
+                                    <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-2">
+                                        <form action="{{route('employee.tooglebookmarked', $job->id)}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="d-block btn">
+                                                <i class="fa fa-heart-o mr-1"></i>
+                                                {{$checkSaveJob ? 'Remove Job' : 'Save Job'}}
+                                            </button>
+                                        </form>
+                                    </div>
+                                    @if(!$checkJobApply)
+                                    <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-2">
+                                        <form action="{{route('employee.apply', $job->id)}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="d-block btn btn-alt"><i class="fa fa-heart-o mr-1"></i> Apply Now</button>
+                                        </form>
+                                    </div>
+                                    @endif
+
+                                @else
+                                    <a href="javacript:" data-toggle="modal" data-target="#login" class="btn"><i
+                                class="lni lni-lock-alt"></i> Login To Apply</a>
                                 @endif
                             </div>
                         </div>

@@ -59,4 +59,5 @@ class Employee extends Authenticatable
     {
         return $this->hasMany(EmployeeExperience::class, 'employee_id');
     }
+
 }

@@ -91,14 +91,26 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6" id="salary_div">
                                             <div class="form-group">
                                                 <label>Salary</label>
                                                 <input class="form-control {{ $errors->has('salary') ? 'is-invalid' : '' }}" type="text" name="salary"
-                                                    value="{{ old('salary') }}">
+                                                    value="{{ old('salary', 0) }}">
                                                 @if ($errors->has('salary'))
-                                                    <span class="error invalid-feedback">
+                                                    <span class="error invalid-feedback text-danger">
                                                         {{ $errors->first('salary') }}
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label>Position</label>
+                                                <input class="form-control {{ $errors->has('position') ? 'is-invalid' : '' }}" type="number" name="position"
+                                                    value="{{ old('position',1) }}">
+                                                @if ($errors->has('position'))
+                                                    <span class="error invalid-feedback">
+                                                        {{ $errors->first('position') }}
                                                     </span>
                                                 @endif
                                             </div>
@@ -125,7 +137,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <label>Start Date*</label>
-                                                <input class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" type="text" name="start_date"
+                                                <input class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" type="date" name="start_date"
                                                     value="{{ old('start_date') }}">
                                                 @if ($errors->has('start_date'))
                                                     <span class="error invalid-feedback">
@@ -137,7 +149,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-group">
                                                 <label>End Date*</label>
-                                                <input class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}" type="text" name="end_date"
+                                                <input class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}" type="date" name="end_date"
                                                     value="{{ old('end_date') }}">
                                                 @if ($errors->has('end_date'))
                                                     <span class="error invalid-feedback">
@@ -146,10 +158,20 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="logo">Image</label>
+                                            <input type="file" name="logoFile" class="form-control {{ $errors->has('logoFile') ? 'is-invalid' : '' }}" id="logo" placeholder="Enter logo" accept="image/*" onchange="loadLogo(event)">
+                                            <img id="blahLogo" src="#" style="width:100px;" />
+                                            @if ($errors->has('logoFile'))
+                                            <span class="error invalid-feedback">
+                                                {{ $errors->first('logoFile') }}
+                                            </span>
+                                            @endif
+                                        </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label>Description*</label>
-                                                <textarea name="description" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" rows="3">{{ old('description', $user->description ?? '') }}</textarea>
+                                                <textarea name="description" class="form-control summernote {{ $errors->has('description') ? 'is-invalid' : '' }}" rows="3">{{ old('description', $user->description ?? '') }}</textarea>
                                                 @if ($errors->has('description'))
                                                     <span class="error invalid-feedback">
                                                         {{ $errors->first('description') }}
@@ -160,7 +182,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label>Secification*</label>
-                                                <textarea name="specification" class="form-control {{ $errors->has('specification') ? 'is-invalid' : '' }}" rows="3">{{ old('specification') }}</textarea>
+                                                <textarea name="specification" class="form-control summernote {{ $errors->has('specification') ? 'is-invalid' : '' }}" rows="3">{{ old('specification') }}</textarea>
                                                 @if ($errors->has('specification'))
                                                     <span class="error invalid-feedback">
                                                         {{ $errors->first('specification') }}
@@ -185,4 +207,35 @@
         </div>
     </div>
     <!-- Main Content end -->
+    <script src="{{asset('backend/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    <script>
+        $('#logo').change(function() {
+            var file = this.files[0];
+            var reader = new FileReader();
+                reader.onload = function(e) {
+                $('#blahLogo').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        });
+        $('#negotiable').change(function(){
+            var value = $(this).val();
+            if(value == 0)
+            {
+                $('#salary_div').show();
+            }else{
+                $('#salary_div').hide();
+            }
+        })
+        document.querySelectorAll('.summernote').forEach(textarea => {
+            ClassicEditor
+                .create(textarea)
+                .then(editor => {
+                    console.log('Editor initialized for textarea:', textarea.id);
+                })
+                .catch(error => {
+                    console.error('Error initializing editor for textarea:', textarea.id, error);
+                });
+        });
+    </script>
 @endsection

@@ -19,4 +19,21 @@ class EmployeeDetail extends Model
     //         set: fn($value) => $value != null ? implode(',', $value) : null
     //     );
     // }
+
+    public function getSkillSetAttribute()
+    {
+        return $this->skills != '' ? explode(',', $this->skills) : [];
+    }
+    public function getShortBioAttribute()
+    {
+        return $this->shortenText($this->bio, 50);
+    }
+    function shortenText($text, $maxLength = 100, $ellipsis = '...')
+    {
+        if (strlen($text) <= $maxLength) {
+            return strip_tags($text); // No need to truncate
+        }
+
+        return substr($text, 0, $maxLength) . $ellipsis;
+    }
 }

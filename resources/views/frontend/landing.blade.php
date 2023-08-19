@@ -199,14 +199,14 @@ margin-top: -25px;
                         <div class="col-md-6 single-job wow fadeInUp" data-wow-delay=".3s">
                             <div class="job-image">
                                 @if ($job->employer->logo_thumb)
-                                    <img src="{{$job->employer->logo_thumb}}" alt="#">
+                                    <img src="{{$job->employer->logo_thumb}}" alt="#" style="width:80%;">
                                 @else
-                                    <img src="{{config('app.settings.logo_path')}}" alt="#">
+                                    <img src="{{config('app.settings.logo_path')}}" alt="#" style="width:80%;">
                                 @endif
                             </div>
                             <div class="job-content">
                                 <h4><a href="job-details.html">{{$job->title}}</a></h4>
-                                <p>{{$job->short_description}}</p>
+                                <p>{!! $job->short_description !!}</p>
                                 <ul>
                                     <li><i class="lni lni-website"></i><a href="#"> {{$job->category->title ?? ''}}</a></li>
                                     <li><i class="lni lni-dollar"></i> {{$job->negotiable == 1 ? 'Negotiable' : $job->salary}}</li>

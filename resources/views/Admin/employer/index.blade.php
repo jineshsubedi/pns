@@ -73,9 +73,6 @@
                                             @can('read-employer')
                                             <a href="{{ route('admin.employers.show', $employer->id) }}" class="btn btn-sm btn-info"><i class="far fa-eye"></i></a>
                                             @endcan
-                                            @can('read-jobs')
-                                            <a href="{{ route('admin.employers.success', $employer->id) }}" class="btn btn-sm btn-info"><i class="fas fa-briefcase"></i></a>
-                                            @endcan
                                             @can('update-employer')
                                             <a href="{{ route('admin.employers.edit', $employer->id) }}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
                                             @endcan

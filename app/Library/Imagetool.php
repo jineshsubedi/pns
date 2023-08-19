@@ -15,7 +15,7 @@ class Imagetool
     }
     public static function getImagePath($path)
     {
-        $default = asset('images/icon.png');
+        $default = 'https://png.pngtree.com/thumb_back/fh260/back_pic/00/05/66/755627593b47110.jpg';
         if(Storage::exists($path))
         {
             return Storage::url($path);
@@ -28,7 +28,9 @@ class Imagetool
         if(Storage::exists('thumb/'.$path))
         {
             return Storage::url('thumb/'.$path);
-        }else{
+        } elseif (Storage::exists($path)) {
+            return Storage::url($path);
+        } else {
             if(Storage::exists($path))
             {
                 $img = Image::make('storage/'.$path);

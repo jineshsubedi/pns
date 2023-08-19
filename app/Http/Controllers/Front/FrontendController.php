@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Bookmark;
 use App\Models\Category;
+use App\Models\Certification;
+use App\Models\Employee;
 use App\Models\Vacancy;
 use App\Models\VacancyApply;
 use Illuminate\Http\Request;
@@ -37,9 +39,11 @@ class FrontendController extends Controller
             'jobs'    =>  $jobs,
         ]);
     }
-    public function jobs()
+    public function jobs(Request $request)
     {
-        return view('frontend.jobs');
+        $jobs = Vacancy::with(['employer'])->latest()->paginate(10)->withQueryString();
+        // return $jobs;
+        return view('frontend.jobs', compact('jobs'));
     }
     public function jobdetail($id)
     {
@@ -68,10 +72,23 @@ class FrontendController extends Controller
     }
     public function freelancer()
     {
-        return view('frontend.freelancer');
+        $employees = Employee::latest()->paginate(10)->withQueryString();
+        return view('frontend.freelancer', compact('employees'));
+    }
+    public function freelancerShow($id)
+    {
+        $employee = Employee::findOrFail($id);
+        $employee->load(['detail', 'education', 'experience']);
+        return view('frontend.freelancer_detail', compact('employee'));
     }
     public function certification()
     {
-        return view('frontend.certification');
+        $certification = Certification::latest()->paginate(10)->withQueryString();
+        return view('frontend.certification', compact('certification'));
+    }
+    public function certificationShow($id)
+    {
+        $certification = Certification::findOrFail($id);
+        return view('frontend.certification_detail', compact('certification'));
     }
 }
